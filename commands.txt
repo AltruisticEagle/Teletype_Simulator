@@ -1,0 +1,3 @@
+LOGIN: logs into the program
+RUN: Runs program
+PRINT: displays text
