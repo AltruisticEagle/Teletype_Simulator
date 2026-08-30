@@ -1,22 +1,12 @@
 import sys
 
-commands = [
-    "PRINT", #done
-    "LET", #done
-    "GOTO", #done
-    "INPUT", #done
-    "FOR", #done
-    "NEXT", #done
-    "END" #done
-]    
-
 class BASIC_Interpreter():
     def __init__(self, teletype):
         self.teletype = teletype
         self.script = None
         self.interpreted_script = None
 
-        self.script_variables = dict() #i do not understand at all how this workd
+        self.script_variables = dict() 
 
         self.index = 0
 
@@ -199,11 +189,4 @@ class BASIC_Interpreter():
         if loop_variable_value <= loop_data["end"]:
             return loop_data["start_index"]
         
-        #del self.loop_data[loop_variable_value]
         return None
-
-        
-
-        #I have typed and coded so much... how difficult is this project I swear to god
-        #but I need to be stoic - every challenge is a growing opportunity
-        #Think of how amazing the certificate will be
