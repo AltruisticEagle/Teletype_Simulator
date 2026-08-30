@@ -12,6 +12,8 @@ As was the case with my previous project, I had some light AI guidance in prepar
 ## Download and running
 run, in a terminal, ```pipx install teletype_simulator```, then run ```teletype-sim``` after pipx installs the package; you should then see the terminal output "OUTPUT > Configuring BASIC interpreter...", which is a purely aesthetic feature that signals that the program is running normally.
 
+I have also encountered issues with uv, so if the normal download doesn't work try ```pipx install teletype-simulator==0.2.0 --backend pip```.
+
 I am aware that Windows OS might have trouble running this program, as it is packaged in the same way as the Linguistics Project on my profile; it seems to work without issues when it is being operated in a Linux/WSL environment, something I cannot solve due to the fact I don't have a Windows PC capable of performing the said test for me. In any case, I have made sure this sequence of commands works on my local Mac VS Code several times.
 
 ## On how to use this project
