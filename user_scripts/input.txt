@@ -1,3 +1,0 @@
-10 INPUT Input the value of variable A; A
-20 PRINT A
-30 END

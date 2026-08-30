@@ -1,4 +1,0 @@
-10 LET X = 1
-20 LET Y = X + 1
-30 PRINT Y 
-40 END

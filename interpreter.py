@@ -3,17 +3,23 @@ import sys
 class BASIC_Interpreter():
     def __init__(self, teletype):
         self.teletype = teletype
+        """Dependency injection to allow easier outputting"""
+
         self.script = None
+        """Stores the actual BASIC script passed into the interpreter; line_number, command, argument"""
+        
         self.interpreted_script = None
+        """Stores a parsed version of the script separated into keywords; a list of dicts"""
 
         self.script_variables = dict() 
-
-        self.index = 0
+        """Stores the variables in the script: {"variable name": x, "value": y}"""
 
         self.loop_data = dict()
+        """Stores data for loops"""
 
     def interpret(self, script):
-        self.script = script
+        """Interprets lines, separating them into line number, command, and argument for running"""
+        self.script = script 
         self.interpreted_script = list()
 
         for line in self.script.splitlines():
@@ -32,19 +38,22 @@ class BASIC_Interpreter():
         self.run_program()
 
     def run_program(self):
-        self.index = 0
-        while self.index < len(self.interpreted_script):
-            current_line = self.interpreted_script[self.index]
+        """Continously runs the program and keeps track of the line index"""
+        index = 0
+        while index < len(self.interpreted_script):
+            #Continously runs the program 
+            current_line = self.interpreted_script[index]
             command = current_line["command"]
             argument = current_line["argument"]
 
-            new_index = self.execute(command, argument)
+            new_index = self.execute(index, command, argument)
             if new_index is not None:
-                self.index = new_index
+                index = new_index
             else:
-                self.index += 1
+                index += 1
 
-    def execute(self, command, argument):
+    def execute(self, index, command, argument):
+        """Executes each line of the program, matching commands to functions"""
         if command == "PRINT":
             self.print_method(argument)
             return None
@@ -59,7 +68,7 @@ class BASIC_Interpreter():
         elif command == "IF":
             action = self.booleans(argument)
             if action:
-                self.execute(*action.split())
+                return self.execute(index, *(action.split(maxsplit=1)))
             return None
 
         elif command == "INPUT":
@@ -67,7 +76,7 @@ class BASIC_Interpreter():
             return None
 
         elif command == "FOR":
-            self.for_loop(argument)
+            self.for_loop(index, argument)
 
         elif command == "NEXT":
             new_index = self.next_method(argument)
@@ -78,7 +87,7 @@ class BASIC_Interpreter():
             sys.exit(0)
 
         else:
-            print(f"Error on line {self.index}")
+            print("FATAL ERROR")
             sys.exit(1)
 
     def print_method(self, argument):
@@ -164,10 +173,9 @@ class BASIC_Interpreter():
 
         if self.evaluate_expression(condition):
             return action
-        else:
-            return None
+        return None
 
-    def for_loop(self, argument):
+    def for_loop(self, index, argument):
         """For loop"""
         variable, bound = argument.split("=")
         start, end = bound.split("TO")
@@ -176,7 +184,7 @@ class BASIC_Interpreter():
         end = int(end.strip())
 
         self.script_variables[variable] = start
-        self.loop_data[variable] = {"end": end, "start_index": self.index + 1}
+        self.loop_data[variable] = {"end": end, "start_index": index + 1}
 
     def next_method(self, loop_variable_name):
         """Advances a for loop and see if it should continue"""
