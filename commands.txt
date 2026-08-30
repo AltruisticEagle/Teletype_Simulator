@@ -1,3 +1,8 @@
-LOGIN: logs into the program
-RUN: Runs program
 PRINT: displays text
+LET: assigns values
+GOTO: go from one line to another
+INPUT: asks for an input and stores if_then_method
+FOR: for loop
+NEXT: next iteration of for loop
+RUN: runs program
+END: exits the program
