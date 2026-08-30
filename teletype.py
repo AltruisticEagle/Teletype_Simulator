@@ -1,6 +1,6 @@
 import sys, time
 
-OUTPUT_SPEED = 0.1
+OUTPUT_SPEED = 0
 
 class Teletype():
     def __init__(self):
@@ -9,11 +9,13 @@ class Teletype():
     def input_to_teletype(self, log_in: int):
         if log_in == 0:
             try:
-                self.output_from_teletype("Enter 1 to create a new script, enter 2 to run an existing one: ")
+                self.output_from_teletype("Enter 1 to create a new script, enter 2 to run an existing one, 3 to exit: ")
                 a = int(input())
             except ValueError:
                 print("Invalid input")
                 sys.exit(1)
+            if a == 3:
+                sys.exit(0)
             return a
 
         elif log_in == 1:
