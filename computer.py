@@ -28,5 +28,10 @@ class Computer():
             file.write("New script!\n")
 
     def open_program(self):
-        with open(f"user_scripts/{self.script_name}") as file:
-            self.script = file.read()
+        try:
+            with open(f"user_scripts/{self.script_name}") as file:
+                self.script = file.read()
+        except FileNotFoundError:
+            print("File not found")
+            sys.exit(1)
+        

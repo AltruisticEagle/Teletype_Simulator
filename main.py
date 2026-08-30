@@ -1,15 +1,4 @@
-from computer import Computer
-
-commands = [
-    "PRINT",
-    "LET",
-    "GOTO",
-    "INPUT",
-    "FOR",
-    "NEXT",
-    "RUN",
-    "END"
-]        
+from computer import Computer   
 
 def main():
     computer = Computer()

@@ -1,3 +1,15 @@
+import sys
+
+commands = [
+    "PRINT", #done
+    "LET", #done
+    "GOTO", #done
+    "INPUT",
+    "FOR",
+    "NEXT",
+    "END" #done
+]    
+
 class BASIC_Interpreter():
     def __init__(self, teletype):
         self.teletype = teletype
@@ -5,6 +17,8 @@ class BASIC_Interpreter():
         self.interpreted_script = None
 
         self.script_variables = dict()
+
+        self.index = 0
 
     def interpret(self, script):
         self.script = script
@@ -23,25 +37,44 @@ class BASIC_Interpreter():
             }
             self.interpreted_script.append(interpreted_line)
 
-        index = 0
-        while True:
-            current_line = self.interpreted_script[index]
+        self.run_program()
+
+    def run_program(self):
+        self.index = 0
+        while self.index < len(self.interpreted_script):
+            current_line = self.interpreted_script[self.index]
             command = current_line["command"]
             argument = current_line["argument"]
 
-            if command == "PRINT":
-                index += 1
-                self.print_method(argument)
+            self.execute(command, argument)
 
-            elif command == "LET":
-                index += 1
-                self.let_method(argument)
+    def execute(self, command, argument):
+        if command == "PRINT":
+            self.index += 1
+            self.print_method(argument)
 
-            elif command == "GOTO":
-                index = self.goto_method(argument)
+        elif command == "LET":
+            self.index += 1
+            self.let_method(argument)
 
-            elif command == "END":
-                break
+        elif command == "GOTO":
+            self.index = self.goto_method(argument)
+
+        elif command == "IF":
+            self.index += 1
+            action = self.booleans(argument)
+            if action:
+                self.execute(*action.split())
+
+        elif command == "INPUT":
+            self.input_method(argument)
+
+        elif command == "END":
+            sys.exit(0)
+
+        else:
+            print(f"Error on line {self.index}")
+            sys.exit(1)
 
     def print_method(self, argument):
         """prints variables"""
@@ -73,7 +106,7 @@ class BASIC_Interpreter():
                 return index
 
     def evaluate_expression(self, expression):
-        """Does basic mathematical calculations"""
+        """Does basic mathematical calculations; Compares two numbers with operators"""
         expression = expression.split()
 
         left = expression[0].strip()
@@ -96,15 +129,32 @@ class BASIC_Interpreter():
             return left * right
         elif operator == "/":
             return left / right
-        
+        elif operator == ">":
+            return True if left > right else False
+        elif operator == ">=":
+            return True if left >= right else False
+        elif operator == "==":
+            return True if left == right else False
+        elif operator == "<":
+            return True if left < right else False
+        elif operator == "<=":
+            return True if left <= right else False
 
-    def comparison(self):
-        """Compares two numbers with operators"""
-        ...
-
-    def input_method(self):
+    def input_method(self, argument):
         """asks for an input and stores it in a variable"""
-        ...
+        self.print_method(argument)
+        user_input = self.teletype.input_to_teletype(3)
+
+    def booleans(self, expression):
+        """Evaluates boolean expressions"""
+        condition, action = expression.split("THEN")
+        condition = condition.strip()
+        action = action.strip()
+
+        if self.evaluate_expression(condition):
+            return action
+        else:
+            return None
 
     def for_loop(self):
         """For loop"""
