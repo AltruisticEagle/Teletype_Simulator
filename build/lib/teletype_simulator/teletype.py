@@ -1,6 +1,6 @@
 import sys, time
 
-OUTPUT_SPEED = 0.1
+OUTPUT_SPEED = 0
 """A teletype returns about 10 characters per second according to research; the output speed is also hardwired to this in this program."""
 
 class Teletype():

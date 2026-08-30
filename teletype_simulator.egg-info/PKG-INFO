@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: teletype-simulator
+Version: 0.1.0
+Summary: A simple teletype and BASIC interpreter simulator
+Requires-Python: >=3.10

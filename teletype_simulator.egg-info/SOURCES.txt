@@ -1,0 +1,12 @@
+pyproject.toml
+teletype_simulator/__init__.py
+teletype_simulator/computer.py
+teletype_simulator/csv_reader.py
+teletype_simulator/interpreter.py
+teletype_simulator/main.py
+teletype_simulator/teletype.py
+teletype_simulator.egg-info/PKG-INFO
+teletype_simulator.egg-info/SOURCES.txt
+teletype_simulator.egg-info/dependency_links.txt
+teletype_simulator.egg-info/entry_points.txt
+teletype_simulator.egg-info/top_level.txt

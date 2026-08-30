@@ -1,0 +1,2 @@
+[console_scripts]
+teletype-sim = teletype_simulator.main:main
