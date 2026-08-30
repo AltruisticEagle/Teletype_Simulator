@@ -4,9 +4,9 @@ commands = [
     "PRINT", #done
     "LET", #done
     "GOTO", #done
-    "INPUT",
-    "FOR",
-    "NEXT",
+    "INPUT", #done
+    "FOR", #done
+    "NEXT", #done
     "END" #done
 ]    
 
@@ -16,9 +16,11 @@ class BASIC_Interpreter():
         self.script = None
         self.interpreted_script = None
 
-        self.script_variables = dict()
+        self.script_variables = dict() #i do not understand at all how this workd
 
         self.index = 0
+
+        self.loop_data = dict()
 
     def interpret(self, script):
         self.script = script
@@ -46,28 +48,41 @@ class BASIC_Interpreter():
             command = current_line["command"]
             argument = current_line["argument"]
 
-            self.execute(command, argument)
+            new_index = self.execute(command, argument)
+            if new_index is not None:
+                self.index = new_index
+            else:
+                self.index += 1
 
     def execute(self, command, argument):
         if command == "PRINT":
-            self.index += 1
             self.print_method(argument)
+            return None
 
         elif command == "LET":
-            self.index += 1
             self.let_method(argument)
+            return None
 
         elif command == "GOTO":
-            self.index = self.goto_method(argument)
+            return self.goto_method(argument)
 
         elif command == "IF":
-            self.index += 1
             action = self.booleans(argument)
             if action:
                 self.execute(*action.split())
+            return None
 
         elif command == "INPUT":
             self.input_method(argument)
+            return None
+
+        elif command == "FOR":
+            self.for_loop(argument)
+
+        elif command == "NEXT":
+            new_index = self.next_method(argument)
+            if new_index is not None:
+                return new_index
 
         elif command == "END":
             sys.exit(0)
@@ -142,8 +157,14 @@ class BASIC_Interpreter():
 
     def input_method(self, argument):
         """asks for an input and stores it in a variable"""
-        self.print_method(argument)
+        prompt, variable = argument.split(";")
+        prompt = prompt.strip()
+        variable = variable.strip()
+
+        self.print_method(prompt)
         user_input = self.teletype.input_to_teletype(3)
+
+        self.let_method(f"{variable} = {user_input}")
 
     def booleans(self, expression):
         """Evaluates boolean expressions"""
@@ -156,6 +177,33 @@ class BASIC_Interpreter():
         else:
             return None
 
-    def for_loop(self):
+    def for_loop(self, argument):
         """For loop"""
-        ...
+        variable, bound = argument.split("=")
+        start, end = bound.split("TO")
+        variable = variable.strip()
+        start = int(start.strip())
+        end = int(end.strip())
+
+        self.script_variables[variable] = start
+        self.loop_data[variable] = {"end": end, "start_index": self.index + 1}
+
+    def next_method(self, loop_variable_name):
+        """Advances a for loop and see if it should continue"""
+        loop_variable_name = loop_variable_name.strip()
+        self.script_variables[loop_variable_name] += 1
+
+        loop_variable_value = self.script_variables[loop_variable_name]
+        loop_data = self.loop_data[loop_variable_name]
+
+        if loop_variable_value <= loop_data["end"]:
+            return loop_data["start_index"]
+        
+        #del self.loop_data[loop_variable_value]
+        return None
+
+        
+
+        #I have typed and coded so much... how difficult is this project I swear to god
+        #but I need to be stoic - every challenge is a growing opportunity
+        #Think of how amazing the certificate will be

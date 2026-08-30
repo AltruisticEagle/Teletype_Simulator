@@ -1,6 +1,6 @@
 import sys, time
 
-OUTPUT_SPEED = 0
+OUTPUT_SPEED = 0.1
 
 class Teletype():
     def __init__(self):
