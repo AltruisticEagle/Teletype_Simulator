@@ -84,6 +84,7 @@ class BASIC_Interpreter():
                 return new_index
 
         elif command == "END":
+            print("\n")
             sys.exit(0)
 
         else:

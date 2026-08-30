@@ -1,6 +1,6 @@
 import sys, time
 
-OUTPUT_SPEED = 0
+OUTPUT_SPEED = 0.1
 """A teletype returns about 10 characters per second according to research; the output speed is also hardwired to this in this program."""
 
 class Teletype():
@@ -10,18 +10,10 @@ class Teletype():
     def input_to_teletype(self, log_in: int):
         if log_in == 0:
             try:
-                self.output_from_teletype("Enter 1 to create a new script, 2 to run an existing one, 3 to exit, \"commands\" for command menu: ")
-                option = input("\nINPUT > ")
-                if option not in ["1", "2", "3", "commands"]:
-                    raise ValueError
+                self.output_from_teletype("Enter 1 to create a new script, 2 to run an existing one, 3 to exit: ")
+                option = int(input("\nINPUT > "))
 
-                if option == "commands":
-                    self.commands()
-                    print()
-                    sys.exit(0)
-                option = int(option)
-
-            except ValueError,:
+            except ValueError:
                 #Exits if none of the three numeric options are picked
                 print("Invalid input")
                 sys.exit(1)
@@ -48,11 +40,3 @@ class Teletype():
             print(character, end="", flush=True)
             time.sleep(OUTPUT_SPEED)
             #it outputs character by characteron a line
-    
-    def commands(self):
-        """Displays command menu for help"""
-        with open("commands.txt", "r") as file:
-            commands = file.read()
-
-        for line in commands.splitlines():
-            self.output_from_teletype(line)

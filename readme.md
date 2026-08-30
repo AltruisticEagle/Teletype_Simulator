@@ -17,8 +17,47 @@ I am aware that Windows OS might have trouble running this program, as it is pac
 ## On how to use this project
 This part acts as a rundown to how an "interpreter" for BASIC was created in this project; if you want to learn some basic BASIC so you can make your own BASIC scripts that the interpreter can run, please read this section. 
 
+To start off, enter 1 to create a new script when prompted. This will then create a folder named "Teletype Simulator" in your documents/ folder, wherein there is a folder named user_scripts/, which itself contains all the BASIC scripts that the user can write in .txt files. You can click into the .txt file you just created and write a basic BASIC script in there, and all future scripts will be stored in the same folder.
 
+You may notice that the display of instructions in the terminal is gradual. This is an intentional feature, as teletype computers historically only run at 10 characters/second, which I used flush=True to represent. 
+
+Here is a short program I wrote covering all the functions that this basic interpreter can read: PRINT, LET, GOTO, INPUT, FOR/NEXT, and END, as well as variables, booleans, and math expressions.
+
+10 LET X = hello
+20 PRINT X
+30 LET A = 1 + 2
+40 LET B = 4 - 2
+50 LET C = 3 * 3
+60 LET D = 8 / 4
+70 IF B == D THEN GOTO 90
+80 PRINT you shouldn't see this
+90 IF A > C THEN GOTO 80
+100 FOR I = 1 TO 3
+110 PRINT I
+120 NEXT I
+130 INPUT what's your name?;NAME
+140 PRINT hello,
+150 PRINT NAME
+160 END
+170 GOTO 80
+
+1. PRINT: very simple command, taking one argument, and then printing it out in the terminal.
+2. LET: Assigns variables (similar to its use in mathematics).
+3. GOTO: goes straight to a line number given as an argument.
+4. IF THEN: all conditionals are in this format, whereas IF evaluates a statement that, if true, executes the action after THEN.
+5. loop: FOR index_variable [lower bound] TO [upper bound], [do this action], [increment to next iteration].
+6. Math: +, -, *, / are supported.
+7. Boolean expressions: >, >=, ==, <=, and < are supported.
+8. INPUT prompt;variable_storing_the_response. This isn't entirely faithful syntax to BASIC however. 
+9. END: terminates the running of the program.  
+
+You can work with that however you want, and good luck writing some BASIC scripts. 
 
 ## Tips for using the basic interpreter
 1. Having END at the end of your script terminates the execution of the program, unless you want it to keep looping. In this case, be advised that if none of your scripts contains END, you will be forced to use Keyboard_Interrupt or EOFError to quit the program. 
-2. The way I programmed this project, I don't think you actually need to put quotes around strings or integers. 
+
+2. The way I programmed this project, I don't think you actually need to put quotes around strings or integers.
+
+3. There are no brackets or orders of operation! You have to do the manipulations one by one in this interpreter.
+
+4. the IF statements are very rigid and have to be in that format to work. 

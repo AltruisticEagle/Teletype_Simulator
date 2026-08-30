@@ -2,6 +2,11 @@ from teletype_simulator.teletype import Teletype
 from teletype_simulator.interpreter import BASIC_Interpreter
 import sys
 
+from pathlib import Path
+
+SCRIPT_DIR = Path.home() / "Documents" / "Teletype Simulator" / "user_scripts"
+SCRIPT_DIR.mkdir(parents=True, exist_ok=True)
+
 class Computer():
     def __init__(self):
         self.teletype = Teletype()
@@ -39,13 +44,17 @@ class Computer():
 
     def new_program(self):
         """Opens a new .txt file for the user to write their BASIC scripts in."""
-        with open(f"user_scripts/{self.script_name}", "w") as file:
+        path = SCRIPT_DIR / self.script_name
+
+        with open(path, "w") as file:
             file.write("New script!\n")
 
     def open_program(self):
         """Opens an existing .txt file for the interpreter to execute."""
+        path = SCRIPT_DIR / self.script_name
+
         try:
-            with open(f"user_scripts/{self.script_name}") as file:
+            with open(path) as file:
                 self.script = file.read()
         except FileNotFoundError:
             print("File not found")
