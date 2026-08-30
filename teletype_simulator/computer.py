@@ -1,5 +1,5 @@
-from teletype import Teletype
-from interpreter import BASIC_Interpreter
+from teletype_simulator.teletype import Teletype
+from teletype_simulator.interpreter import BASIC_Interpreter
 import sys
 
 class Computer():

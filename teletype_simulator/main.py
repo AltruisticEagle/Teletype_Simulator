@@ -1,4 +1,4 @@
-from computer import Computer   
+from teletype_simulator.computer import Computer   
 
 def main():
     computer = Computer()
