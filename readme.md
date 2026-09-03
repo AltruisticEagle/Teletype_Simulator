@@ -25,23 +25,23 @@ You may notice that the display of instructions in the terminal is gradual. This
 
 Here is a short program I wrote covering all the functions that this basic interpreter can read: PRINT, LET, GOTO, INPUT, FOR/NEXT, and END, as well as variables, booleans, and math expressions.
 
-10 LET X = hello
-20 PRINT X
-30 LET A = 1 + 2
-40 LET B = 4 - 2
-50 LET C = 3 * 3
-60 LET D = 8 / 4
-70 IF B == D THEN GOTO 90
-80 PRINT you shouldn't see this
-90 IF A > C THEN GOTO 80
-100 FOR I = 1 TO 3
-110 PRINT I
-120 NEXT I
-130 INPUT what's your name?;NAME
-140 PRINT hello,
-150 PRINT NAME
-160 END
-170 GOTO 80
+10 LET X = hello \
+20 PRINT X\
+30 LET A = 1 + 2\
+40 LET B = 4 - 2\
+50 LET C = 3 * 3\
+60 LET D = 8 / 4\
+70 IF B == D THEN GOTO 90\
+80 PRINT you shouldn't see this\
+90 IF A > C THEN GOTO 80\
+100 FOR I = 1 TO 3\
+110 PRINT I\
+120 NEXT I\
+130 INPUT what's your name?;NAME\
+140 PRINT hello,\
+150 PRINT NAME\
+160 END\
+170 GOTO 80\
 
 1. PRINT: very simple command, taking one argument, and then printing it out in the terminal.
 2. LET: Assigns variables (similar to its use in mathematics).
