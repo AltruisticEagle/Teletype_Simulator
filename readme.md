@@ -41,7 +41,7 @@ Here is a short program I wrote covering all the functions that this basic inter
 140 PRINT hello,\
 150 PRINT NAME\
 160 END\
-170 GOTO 80\
+170 GOTO 80
 
 1. PRINT: very simple command, taking one argument, and then printing it out in the terminal.
 2. LET: Assigns variables (similar to its use in mathematics).
